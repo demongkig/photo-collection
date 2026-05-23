@@ -2,11 +2,11 @@
 # exit on error
 set -o errexit
 
-# Install required dependencies
+echo "Installing project dependencies..."
 pip install -r requirements.txt
 
-# Compile static design layouts (Tailwind, admin panels)
+echo "Collecting template styles and assets..."
 python manage.py collectstatic --no-input
 
-# Run database migrations securely on Render's PostgreSQL
+echo "Synchronizing database structure layouts..."
 python manage.py migrate

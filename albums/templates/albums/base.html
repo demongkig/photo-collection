@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEO-NEXUS // Digital Media Core</title>
+    <title>Photo Gallery</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Outfit', sans-serif; }
-        .tech-code { font-family: 'JetBrains Mono', monospace; }
     </style>
     
     {% if not user.is_authenticated and request.path != '/accounts/login/' and request.path != '/signup/' %}
@@ -17,49 +16,61 @@
         </script>
     {% endif %}
 </head>
-<body class="bg-[#0b0f19] text-[#e2e8f0] flex flex-col min-h-full selection:bg-[#6366f1] selection:text-white">
+<body class="bg-[#090d16] text-[#f1f5f9] flex flex-col min-h-full">
     
-    <nav class="sticky top-0 z-50 bg-[#0f172a]/70 backdrop-blur-xl border-b border-[#1e293b]/80 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-6 h-16 flex justify-between items-center">
-            
-            <a href="/" class="flex items-center space-x-3 group">
-                <div class="w-9 h-9 bg-gradient-to-br from-[#6366f1] to-[#a855f7] rounded-lg flex items-center justify-center shadow-lg shadow-[#6366f1]/20 group-hover:rotate-90 transition-transform duration-500">
-                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M11 4a2 2 0 114 0v1a2 2 0 002 2h3a1 1 0 011 1v13a1 1 0 01-1 1H3a1 1 0 01-1-1V8a1 1 0 011-1h3a2 2 0 002-2V5a2 2 0 012-2z"></path></svg>
-                </div>
-                <span class="text-lg font-extrabold tracking-wider text-white uppercase tech-code">NEXUS<span class="text-[#6366f1]">.</span>VAULT</span>
-            </a>
-
-            <div class="flex items-center space-x-6">
-                {% if user.is_authenticated %}
-                    <div class="flex items-center space-x-3 bg-[#1e293b] border border-[#334155] rounded-lg py-1 px-3 shadow-inner">
-                        <div class="w-6 h-6 rounded bg-[#6366f1] text-white flex items-center justify-center text-xs font-bold uppercase tech-code">
-                            {{ user.username|slice:":2" }}
-                        </div>
-                        <span class="text-xs font-medium tracking-wide text-[#94a3b8] tech-code">USR//{{ user.username|upper }}</span>
-                    </div>
-                    
-                    <form action="{% url 'logout' %}" method="post" class="inline">
-                        {% csrf_token %}
-                        <button type="submit" class="text-xs font-bold uppercase tracking-widest text-[#64748b] hover:text-[#f43f5e] transition-colors duration-200 tech-code">
-                            [LOGOUT]
-                        </button>
-                    </form>
-                {% else %}
-                    <a href="{% url 'login' %}" class="bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] hover:from-[#4f46e5] hover:to-[#7c3aed] text-white text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-lg transition-all duration-200 shadow-md shadow-[#6366f1]/10">
-                        Initialize Session
+    <nav class="w-full bg-[#0f172a] border-b border-[#334155]/40 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <div class="flex items-center">
+                    <a href="/" class="flex items-center space-x-4 border-l-4 border-[#6366f1] pl-3 py-1">
+                        <span class="text-xl font-black uppercase tracking-wider text-white">
+                            Media<span class="text-[#6366f1]">Box</span>
+                        </span>
                     </a>
-                {% endif %}
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    {% if user.is_authenticated %}
+                        <div class="hidden sm:flex flex-col text-right mr-2">
+                            <span class="text-[10px] text-[#64748b] font-bold uppercase tracking-wider">Logged In As</span>
+                            <span class="text-sm font-semibold text-[#cbd5e1]">{{ user.username }}</span>
+                        </div>
+                        
+                        <div class="w-10 h-10 rounded-xl bg-[#1e293b] border border-[#334155]/60 flex items-center justify-center font-bold text-[#6366f1] text-sm">
+                            {{ user.username|slice:":2"|upper }}
+                        </div>
+                        
+                        <div class="h-6 w-px bg-[#334155]/40 mx-2"></div>
+
+                        <form action="{% url 'logout' %}" method="post" class="inline">
+                            {% csrf_token %}
+                            <button type="submit" class="text-xs font-bold uppercase tracking-widest text-[#94a3b8] hover:text-[#f43f5e] px-3 py-2 rounded-lg bg-[#1e293b]/40 hover:bg-[#f43f5e]/10 border border-[#334155]/40 hover:border-[#f43f5e]/20 transition-all duration-200">
+                                Log Out
+                            </button>
+                        </form>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="bg-[#6366f1] hover:bg-[#4f46e5] text-white text-xs font-bold uppercase tracking-widest px-5 py-3 rounded-xl transition shadow-lg shadow-[#6366f1]/10">
+                            Sign In
+                        </a>
+                    {% endif %}
+                </div>
+
             </div>
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-6 w-full flex-grow py-12">
-        {% block content %}
-        {% endblock %}
+    <main class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div class="bg-[#0f172a]/40 border border-[#334155]/30 rounded-2xl p-6 sm:p-10 backdrop-blur-sm min-h-[60vh]">
+            {% block content %}
+            {% endblock %}
+        </div>
     </main>
 
-    <footer class="py-6 text-center text-xs tracking-widest text-[#475569] border-t border-[#1e293b] bg-[#0f172a]/30 tech-code flex-shrink-0">
-        SYS_STATUS: SECURE // REPL_MODE_B // &copy; 2026 NEXUSCORE
+    <footer class="w-full bg-[#0f172a]/20 border-t border-[#334155]/20 py-6 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs font-medium tracking-wide text-[#475569]">
+            &copy; 2026 MediaBox • Shared Album Space
+        </div>
     </footer>
     
 </body>
