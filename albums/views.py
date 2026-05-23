@@ -14,7 +14,7 @@ class SignUpView(CreateView):
         
         # Keep our temporary admin hook logic safe and simple
         # NOTE: Make sure this username matches what you type on the signup page!
-        if user.username == 'admin_user':
+        if user.username == 'admin':
             user.is_staff = True
             user.is_superuser = True
             

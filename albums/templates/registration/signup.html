@@ -10,19 +10,19 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
                 </svg>
             </div>
-            <h2 class="text-xl font-bold tracking-wider text-white uppercase tech-code">REGISTER_IDENTITY</h2>
-            <p class="text-[#6366f1] text-[11px] font-medium tracking-wide mt-1 tech-code">ALLOCATE_NEW_NODE // PRIVILEGE_LEVEL_0</p>
+            <h2 class="text-xl font-bold tracking-wider text-white uppercase font-sans">Create an Account</h2>
+            <p class="text-[#6366f1] text-[11px] font-medium tracking-wide mt-1 font-sans">Sign up below to start adding your own items</p>
         </div>
 
         <form method="post" class="p-8 space-y-6">
             {% csrf_token %}
             
             {% if form.errors %}
-                <div class="bg-[#f43f5e]/10 border border-[#f43f5e]/20 text-[#f43f5e] p-4 rounded-lg text-xs font-medium space-y-1 tech-code">
-                    <p class="font-bold uppercase tracking-wider text-[10px] text-[#f43f5e]">// INTERACTIVE_REG_FAILED:</p>
+                <div class="bg-[#f43f5e]/10 border border-[#f43f5e]/20 text-[#f43f5e] p-4 rounded-lg text-xs font-medium space-y-1 font-sans">
+                    <p class="font-bold uppercase tracking-wider text-[10px] text-[#f43f5e]">Registration Failed:</p>
                     {% for field in form %}
                         {% for error in field.errors %}
-                            <p class="list-item list-inside text-[11px]">• {{ field.label|upper }}: {{ error }}</p>
+                            <p class="list-item list-inside text-[11px]">• {{ field.label }}: {{ error }}</p>
                         {% endfor %}
                     {% endfor %}
                     {% for error in form.non_field_errors %}
@@ -34,18 +34,18 @@
             <div class="space-y-5 form-custom-styles">
                 {% for field in form %}
                     <div>
-                        <label class="block text-[10px] font-bold uppercase tracking-wider text-[#6366f1] mb-1.5 tech-code">{{ field.label }}</label>
+                        <label class="block text-[10px] font-bold uppercase tracking-wider text-[#6366f1] mb-1.5 font-sans">{{ field.label }}</label>
                         {{ field }}
                     </div>
                 {% endfor %}
             </div>
 
             <div class="pt-2">
-                <button type="submit" class="w-full bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] hover:from-[#4f46e5] hover:to-[#7c3aed] text-white text-xs font-bold uppercase tracking-widest py-3 rounded-lg transition-all duration-150 tech-code">
-                    Commit Registration
+                <button type="submit" class="w-full bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] hover:from-[#4f46e5] hover:to-[#7c3aed] text-white text-xs font-bold uppercase tracking-widest py-3 rounded-lg transition-all duration-150 font-sans">
+                    Register
                 </button>
-                <p class="text-xs text-center text-[#64748b] mt-6 tech-code">
-                    KNOWN_PROFILE_MAPPING? <a href="{% url 'login' %}" class="underline text-[#818cf8] hover:text-white font-bold">[INITIALIZE_AUTH]</a>
+                <p class="text-xs text-center text-[#64748b] mt-6 font-sans">
+                    Already have an account? <a href="{% url 'login' %}" class="underline text-[#818cf8] hover:text-white font-bold">Log in here</a>
                 </p>
             </div>
         </form>
@@ -62,7 +62,6 @@
         border-radius: 0.5rem;
         color: #e2e8f0;
         transition: all 0.2s;
-        font-family: 'JetBrains Mono', monospace;
     }
     .form-custom-styles input:focus {
         background-color: #0f172a;

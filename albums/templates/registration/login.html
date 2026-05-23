@@ -1,7 +1,7 @@
 {% extends 'albums/base.html' %}
 
 {% block content %}
-<div class="max-w-md mx-auto my-16 space-y-6">
+<div class="max-w-md mx-auto my-16">
     <div class="bg-[#0f172a] border border-[#1e293b] rounded-xl shadow-2xl overflow-hidden">
         
         <div class="bg-[#1e1b4b] border-b border-[#312e81] px-8 py-7 text-center">
@@ -10,16 +10,16 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
                 </svg>
             </div>
-            <h2 class="text-xl font-bold tracking-wider text-white uppercase tech-code">AUTHENTICATE_SESSION</h2>
-            <p class="text-[#6366f1] text-[11px] font-medium tracking-wide mt-1 tech-code">HANDSHAKE_TARGET // INITIAL_GATEWAY</p>
+            <h2 class="text-xl font-bold tracking-wider text-white uppercase font-sans">Account Sign In</h2>
+            <p class="text-[#6366f1] text-[11px] font-medium tracking-wide mt-1 font-sans">Please enter your details to view the gallery</p>
         </div>
 
         <form method="post" class="p-8 space-y-6">
             {% csrf_token %}
             
             {% if form.errors %}
-                <div class="bg-[#f43f5e]/10 border border-[#f43f5e]/20 text-[#f43f5e] p-3 rounded-lg text-xs font-medium tech-code">
-                    ERROR // Security handshake rejected. Verify parameters.
+                <div class="bg-[#f43f5e]/10 border border-[#f43f5e]/20 text-[#f43f5e] p-3 rounded-lg text-xs font-medium font-sans">
+                    Error: Incorrect username or password. Please try again.
                 </div>
             {% endif %}
 
@@ -27,46 +27,33 @@
                 {{ form.as_p }}
             </div>
 
+            <div class="bg-[#0b0f19] border border-[#1e293b] rounded-lg p-3 font-sans text-[11px] text-[#475569] space-y-1">
+                <span class="text-[#a855f7] font-bold block mb-0.5">Manager Account Hint:</span>
+                <div class="flex justify-between">
+                    <span>Username: <span class="text-[#e2e8f0]">admin</span></span>
+                    <span>Password: <span class="text-[#e2e8f0]">admin12345</span></span>
+                </div>
+            </div>
+
             <div class="pt-2">
-                <button type="submit" class="w-full bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] hover:from-[#4f46e5] hover:to-[#7c3aed] text-white text-xs font-bold uppercase tracking-widest py-3 rounded-lg transition-all duration-150 tech-code">
-                    Request Core Entry
+                <button type="submit" class="w-full bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] hover:from-[#4f46e5] hover:to-[#7c3aed] text-white text-xs font-bold uppercase tracking-widest py-3 rounded-lg transition-all duration-150 font-sans">
+                    Sign In
                 </button>
-                <p class="text-xs text-center text-[#64748b] mt-6 tech-code">
-                    UNREGISTERED_IDENTITY? <a href="{% url 'signup' %}" class="underline text-[#818cf8] hover:text-white font-bold">[SPAWN_PROFILE]</a>
+                <p class="text-xs text-center text-[#64748b] mt-6 font-sans">
+                    Don't have an account? <a href="{% url 'signup' %}" class="underline text-[#818cf8] hover:text-white font-bold">Create one here</a>
                 </p>
             </div>
         </form>
     </div>
-
-    <div class="bg-[#0f172a] border border-[#1e293b] rounded-xl p-5 text-xs text-[#64748b] space-y-4 shadow-xl">
-        <div class="space-y-3 pt-1 tech-code">
-            <div class="bg-[#0b0f19] p-3 rounded-lg border border-[#1e293b]">
-                <span class="block font-bold text-[#38bdf8] mb-1">// 01_STANDARD_USER_FLOW</span>
-                <p class="text-[#475569] leading-relaxed text-[11px]">
-                    Execute a local registration pass using the link above to test basic read/write environment mapping privileges.
-                </p>
-            </div>
-            <div class="bg-[#0b0f19] p-3 rounded-lg border border-[#1e293b]">
-                <span class="block font-bold text-[#a855f7] mb-1">// 02_ROOT_ADMIN_OVERRIDE</span>
-                <div class="space-y-0.5 font-mono text-[11px] bg-[#0f172a] p-2 mt-1 rounded border border-[#1e293b] text-[#e2e8f0]">
-                    <div><span class="text-[#475569]">SYS_ID:</span> admin_user</div>
-                    <div><span class="text-[#475569]">SYS_TK:</span> @dm1n_panel</div>
-                </div>
-                <span class="text-[10px] text-[#475569] block mt-2 leading-normal">
-                    Elevated master token: grants full backend access control configurations explicitly mapped inside <a href="/admin" class="underline text-[#6366f1] hover:text-[#818cf8]">/admin</a>.
-                </span>
-            </div>
-        </div>
-    </div>
 </div>
 
 <style>
+    /* Clean layout formatting rules */
     .form-custom-styles p {
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
         margin-bottom: 1.25rem;
-        font-family: 'JetBrains Mono', monospace;
     }
     .form-custom-styles label {
         font-size: 10px;
