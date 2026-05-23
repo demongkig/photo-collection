@@ -1,0 +1,95 @@
+{% extends 'albums/base.html' %}
+
+{% block content %}
+<div class="max-w-md mx-auto my-16">
+    <div class="bg-[#fdfbf7] border border-[#e6dfd3] rounded-2xl shadow-xl overflow-hidden">
+        
+        <div class="bg-[#36251b] px-8 py-8 text-center text-[#fdfbf7]">
+            <div class="w-12 h-12 bg-[#b07d62] rounded-xl flex items-center justify-center mx-auto mb-3 shadow-md">
+                <svg class="w-6 h-6 text-[#fdfbf7]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+                </svg>
+            </div>
+            <h2 class="text-2xl font-bold tracking-tight">Create Profile Parameters</h2>
+            <p class="text-[#cfc4b2] text-xs font-light mt-1">Initialize a standard credential workspace to access server archives.</p>
+        </div>
+
+        <form method="post" class="p-8 space-y-6">
+            {% csrf_token %}
+            
+            {% if form.errors %}
+                <div class="bg-[#9c523c]/10 border border-[#9c523c]/30 text-[#9c523c] px-4 py-3 rounded-xl text-xs font-medium space-y-1">
+                    <p class="font-bold uppercase tracking-wider text-[10px]">Registration Interrupted:</p>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <p class="list-item list-inside">• {{ field.label }}: {{ error }}</p>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <p class="list-item list-inside">• {{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <div class="space-y-5 form-custom-styles">
+                {% for field in form %}
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">{{ field.label }}</label>
+                        {{ field }}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="pt-2">
+                <button type="submit" class="w-full bg-[#b07d62] hover:bg-[#9c6a50] text-white text-sm font-semibold py-3 rounded-xl shadow-md shadow-[#b07d62]/10 transition-all duration-150 hover:-translate-y-0.5">
+                    Register Account
+                </button>
+                <p class="text-sm text-center text-gray-500 mt-6">
+                    Already have an account? <a href="{% url 'login' %}" class="underline text-gray-900 hover:text-gray-700 font-medium">Log in here</a>.
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    /* Keeps signup element form paragraphs clean, stacked, and uniform */
+    .form-custom-styles p {
+        display: flex;
+        flex-direction: column;
+        gap: 0.375rem;
+        margin-bottom: 1.25rem;
+    }
+    .form-custom-styles label {
+        display: block;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #6e5a4b;
+        margin-bottom: 0.375rem;
+    }
+    .form-custom-styles input {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        font-size: 0.875rem;
+        background-color: #fcfbf7;
+        border: 1px solid #e6dfd3;
+        border-radius: 0.75rem;
+        color: #36251b;
+        transition: all 0.2s;
+    }
+    .form-custom-styles input:focus {
+        background-color: #ffffff;
+        border-color: #b07d62;
+        outline: none;
+        box-shadow: 0 0 0 4px rgba(176, 125, 98, 0.15);
+    }
+    /* Simple support for django default layout checkbox help texts if rendered */
+    .form-custom-styles input[type="checkbox"] {
+        width: auto;
+        display: inline-block;
+        margin-right: 0.5rem;
+    }
+</style>
+{% endblock %}

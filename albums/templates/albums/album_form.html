@@ -1,0 +1,85 @@
+{% extends 'albums/base.html' %}
+
+{% block content %}
+<div class="max-w-xl mx-auto">
+    <a href="{% url 'album-list' %}" class="inline-flex items-center space-x-2 text-sm text-[#7c695a] hover:text-[#36251b] font-medium transition mb-6 group">
+        <svg class="w-4 h-4 transform group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+        <span>Back to Archive</span>
+    </a>
+
+    <div class="bg-[#fdfbf7] border border-[#e6dfd3] rounded-2xl shadow-xl overflow-hidden">
+        <div class="bg-[#36251b] px-8 py-6 text-[#fdfbf7]">
+            <h2 class="text-2xl font-bold tracking-tight">
+                {% if object %}Modify Studio Resources{% else %}Configure Studio Node{% endif %}
+            </h2>
+            <p class="text-[#cfc4b2] text-xs font-light mt-1">Specify parameters to securely synchronize configuration states with Cloudinary systems.</p>
+        </div>
+
+        <form method="post" enctype="multipart/form-data" class="p-8 space-y-6">
+            {% csrf_token %}
+
+            {% if form.errors %}
+                <div class="bg-[#9c523c]/10 border border-[#9c523c]/30 text-[#9c523c] px-4 py-3 rounded-xl text-xs font-medium">
+                    Structural execution error patterns verified within submitted fields.
+                </div>
+            {% endif %}
+
+            <div class="space-y-5 form-custom-styles">
+                {{ form.as_p }}
+            </div>
+
+            <div class="pt-4 border-t border-[#e6dfd3] flex items-center justify-end space-x-4">
+                <a href="{% url 'album-list' %}" class="bg-[#f3ede0] hover:bg-[#e6dfd3] text-[#5c4636] text-sm font-semibold px-5 py-2.5 rounded-xl transition">
+                    Discard
+                </a>
+                <button type="submit" class="bg-[#b07d62] hover:bg-[#9c6a50] text-white text-sm font-semibold px-6 py-2.5 rounded-xl shadow-md shadow-[#b07d62]/10 transition-all duration-150 hover:-translate-y-0.5">
+                    Commit Changes
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    /* Styling adjustments to match the organic skin/linen layout context */
+    .form-custom-styles p {
+        display: flex;
+        flex-direction: column;
+        gap: 0.375rem;
+        margin-bottom: 1.25rem;
+    }
+    .form-custom-styles label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #6e5a4b;
+    }
+    .form-custom-styles input[type="text"], 
+    .form-custom-styles textarea {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        font-size: 0.875rem;
+        background-color: #fcfbf7;
+        border: 1px solid #e6dfd3;
+        border-radius: 0.75rem;
+        color: #36251b;
+        transition: all 0.2s;
+    }
+    .form-custom-styles input[type="text"]:focus, 
+    .form-custom-styles textarea:focus {
+        background-color: #ffffff;
+        border-color: #b07d62;
+        outline: none;
+        box-shadow: 0 0 0 4px rgba(176, 125, 98, 0.15);
+    }
+    .form-custom-styles input[type="file"] {
+        font-size: 0.875rem;
+        color: #7c695a;
+        background: #f7f4eb;
+        padding: 0.5rem;
+        border-radius: 0.75rem;
+        border: 1px dashed #cfc4b2;
+    }
+</style>
+{% endblock %}

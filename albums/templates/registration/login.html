@@ -1,0 +1,102 @@
+{% extends 'albums/base.html' %}
+
+{% block content %}
+<div class="max-w-md mx-auto my-16 space-y-6">
+    <div class="bg-[#fdfbf7] border border-[#e6dfd3] rounded-2xl shadow-xl overflow-hidden">
+        
+        <div class="bg-[#36251b] px-8 py-8 text-center text-[#fdfbf7]">
+            <div class="w-12 h-12 bg-[#b07d62] rounded-xl flex items-center justify-center mx-auto mb-3 shadow-md">
+                <svg class="w-6 h-6 text-[#fdfbf7]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                </svg>
+            </div>
+            <h2 class="text-2xl font-bold tracking-tight">Access Secure Archive</h2>
+            <p class="text-[#cfc4b2] text-xs font-light mt-1">Please authenticate your profile parameters to manage system assets.</p>
+        </div>
+
+        <form method="post" class="p-8 space-y-6">
+            {% csrf_token %}
+            
+            {% if form.errors %}
+                <div class="bg-[#9c523c]/10 border border-[#9c523c]/30 text-[#9c523c] px-4 py-3 rounded-xl text-xs font-medium">
+                    Credentials invalid. Please verify username and secret tokens.
+                </div>
+            {% endif %}
+
+            <div class="space-y-5 form-custom-styles">
+                {{ form.as_p }}
+            </div>
+
+            <div class="pt-2">
+                <button type="submit" class="w-full bg-[#b07d62] hover:bg-[#9c6a50] text-white text-sm font-semibold py-3 rounded-xl shadow-md shadow-[#b07d62]/10 transition-all duration-150 hover:-translate-y-0.5">
+                    Authorize Entry
+                </button>
+                <p class="text-sm text-center text-gray-500 mt-6">
+                    Don't have an account? <a href="{% url 'signup' %}" class="underline text-gray-900 hover:text-gray-700 font-medium">Create one here</a>.
+                </p>
+            </div>
+        </form>
+    </div>
+
+    <div class="bg-[#fdfbf7] border border-[#e6dfd3] rounded-2xl p-6 text-sm text-[#6e5a4b] space-y-4 shadow-md">
+
+        <div class="space-y-3 pt-1 text-xs">
+            <div class="bg-white p-3 rounded-xl border border-[#e6dfd3] shadow-xs">
+                <span class="block font-semibold text-[#36251b] mb-1">👤 1. Test Standard User Role</span>
+                <p class="text-[#8c7665] leading-relaxed">
+                    Click <a href="{% url 'signup' %}" class="underline text-[#b07d62] font-semibold hover:text-[#9c6a50]">Create one here</a> above to register a new user profile.
+                </p>
+            </div>
+            <div class="bg-white p-3 rounded-xl border border-[#e6dfd3] shadow-xs">
+                <span class="block font-semibold text-[#36251b] mb-1">👑 2. Test Album Administrator Role</span>
+                <div class="space-y-0.5 font-mono text-[11px] bg-[#fdfbf7] p-2 rounded border border-[#e6dfd3] text-[#36251b]">
+                    <div><strong class="text-[#8c7665] font-sans">Username:</strong> admin_user</div>
+                    <div><strong class="text-[#8c7665] font-sans">Password:</strong> @dm1n_panel</div>
+                </div>
+                <span class="text-[10px] text-gray-400 block mt-1.5 leading-normal">
+                    (Grants complete backend oversight, global audit tables, and master configuration access directly at <a href="/admin" class="underline text-[#b07d62]">/admin</a>)
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Keeps login element form paragraphs clean, stacked, and uniform */
+    .form-custom-styles p {
+        display: flex;
+        flex-direction: column;
+        gap: 0.375rem;
+        margin-bottom: 1.25rem;
+    }
+    .form-custom-styles label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #6e5a4b;
+    }
+    .form-custom-styles input {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        font-size: 0.875rem;
+        background-color: #fcfbf7;
+        border: 1px solid #e6dfd3;
+        border-radius: 0.75rem;
+        color: #36251b;
+        transition: all 0.2s;
+    }
+    .form-custom-styles input:focus {
+        background-color: #ffffff;
+        border-color: #b07d62;
+        outline: none;
+        box-shadow: 0 0 0 4px rgba(176, 125, 98, 0.15);
+    }
+    /* Simple support for django default layout checkbox help texts if rendered */
+    .form-custom-styles input[type="checkbox"] {
+        width: auto;
+        display: inline-block;
+        margin-right: 0.5rem;
+    }
+</style>
+{% endblock %}

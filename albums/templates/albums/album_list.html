@@ -1,0 +1,68 @@
+{% extends 'albums/base.html' %}
+
+{% block content %}
+<div class="space-y-12">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 border-b border-[#e6dfd3] pb-8">
+        <div>
+            <h1 class="text-4xl font-extrabold text-[#36251b] tracking-tight mb-2">Visual Archive</h1>
+            <p class="text-[#7c695a] max-w-xl">A quiet, secure sanctuary where our most cherished memories live, preserved in enduring cloud infrastructure.</p>
+        </div>
+        {% if user.is_authenticated %}
+        <a href="{% url 'album-create' %}" class="self-start md:self-center bg-[#b07d62] hover:bg-[#9c6a50] text-white px-6 py-3 rounded-xl shadow-md shadow-[#b07d62]/10 font-semibold tracking-wide transition-all duration-200 hover:-translate-y-0.5 flex items-center space-x-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path></svg>
+            <span>Create New Studio</span>
+        </a>
+        {% endif %}
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for album in albums %}
+            <div class="group bg-[#fdfbf7] rounded-2xl border border-[#e6dfd3] overflow-hidden shadow-sm hover:shadow-xl hover:border-[#cfc4b2] transition-all duration-300 flex flex-col justify-between">
+                <div>
+                    <div class="overflow-hidden bg-[#241912] relative aspect-[16/11]">
+                        {% if album.cover_image %}
+                            <img src="{{ album.cover_image.url }}" class="w-full h-full object-cover group-hover:scale-105 group-hover:opacity-95 transition-all duration-500" alt="{{ album.title }}">
+                        {% else %}
+                            <div class="w-full h-full flex items-center justify-center text-[#7c695a]">
+                                <svg class="w-12 h-12 stroke-current opacity-30" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 002-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-[#36251b] mb-2 tracking-tight group-hover:text-[#b07d62] transition-colors duration-200">{{ album.title }}</h3>
+                        <p class="text-[#6e5a4b] text-sm leading-relaxed line-clamp-3 font-light">{{ album.description|default:"No description details recorded for this catalog node." }}</p>
+                    </div>
+                </div>
+
+                <div class="px-6 py-4 bg-[#f7f4eb] border-t border-[#e6dfd3] flex justify-between items-center text-xs mt-auto">
+                    <div class="flex items-center space-x-2 text-[#7c695a]">
+                        <div class="w-1.5 h-1.5 rounded-full bg-[#d4a383] animate-pulse"></div>
+                        <span>By: <strong class="text-[#36251b] font-semibold">{{ album.created_by.username }}</strong></span>
+                    </div>
+                    
+                    {% if request.user == album.created_by or request.user.is_superuser %}
+                        <div class="flex space-x-4">
+                            <a href="{% url 'album-edit' album.pk %}" class="text-[#b07d62] hover:text-[#9c6a50] font-bold tracking-wide transition-colors duration-150">Modify</a>
+                            <a href="{% url 'album-delete' album.pk %}" class="text-[#9c523c] hover:text-[#7d3b29] font-bold tracking-wide transition-colors duration-150">Delete</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-span-full max-w-md mx-auto text-center py-20 px-6 border-2 border-dashed border-[#dfd6c4] rounded-3xl bg-[#fdfbf7]/60">
+                <div class="w-16 h-16 bg-[#f3ede0] rounded-2xl flex items-center justify-center mx-auto mb-6 text-[#8c7665]">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                </div>
+                <h3 class="text-lg font-bold text-[#36251b] mb-1">Archive Registry Empty</h3>
+                <p class="text-[#7c695a] text-sm mb-6 font-light">No custom studio items are actively logged in this branch environment layout.</p>
+                {% if user.is_authenticated %}
+                <a href="{% url 'album-create' %}" class="inline-flex bg-[#36251b] text-white text-xs font-bold px-4 py-2.5 rounded-xl hover:bg-[#4a3427] transition">Initialize Studio</a>
+                {% else %}
+                <a href="{% url 'login' %}" class="inline-flex bg-[#b07d62] text-white text-xs font-bold px-4 py-2.5 rounded-xl hover:bg-[#9c6a50] transition">Authorize Portal</a>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
