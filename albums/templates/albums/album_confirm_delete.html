@@ -2,33 +2,29 @@
 
 {% block content %}
 <div class="max-w-md mx-auto my-12">
-    <a href="{% url 'album-list' %}" class="inline-flex items-center space-x-2 text-sm text-[#7c695a] hover:text-[#36251b] font-medium transition mb-6 group">
-        <svg class="w-4 h-4 transform group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-        <span>Cancel and Go Back</span>
+    <a href="{% url 'album-list' %}" class="inline-flex items-center space-x-2 text-xs uppercase tracking-widest text-[#475569] hover:text-white font-bold transition mb-6 tech-code">
+        <span><- BACK OUT</span>
     </a>
 
-    <div class="bg-[#fdfbf7] border border-[#e6dfd3] rounded-2xl shadow-xl overflow-hidden">
-        <div class="bg-[#9c523c] px-6 py-5 text-[#fdfbf7]">
-            <h2 class="text-xl font-bold tracking-tight flex items-center space-x-2">
-                <svg class="w-5 h-5 stroke-current" fill="none" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
-                </svg>
-                <span>Confirm Removal</span>
+    <div class="bg-[#0f172a] border border-[#1e293b] rounded-xl shadow-2xl overflow-hidden">
+        <div class="bg-[#4c0519] border-b border-[#881337] px-6 py-4 text-[#fda4af]">
+            <h2 class="text-sm font-bold tracking-widest flex items-center space-x-2 uppercase tech-code">
+                <span>⚠️ DESTRUCTION_PROTOCOL_INIT</span>
             </h2>
         </div>
 
         <div class="p-6 space-y-6">
-            <p class="text-[#6e5a4b] text-sm leading-relaxed font-light">
-                Are you sure you want to permanently delete <strong class="text-[#36251b] font-semibold">"{{ object.title }}"</strong>? This action will completely erase the asset reference from the network gallery registry and wipe its associated media files from cloud storage.
+            <p class="text-[#94a3b8] text-xs leading-relaxed tech-code">
+                WARNING // Confirm intentional master purge sequence targeting: <strong class="text-[#f43f5e] font-bold">"{{ object.title|upper }}"</strong>. This script routine permanently updates database registry index rows and triggers an explicit, irreversible media asset deletion lifecycle inside Cloudinary cloud nodes.
             </p>
 
-            <form method="post" class="flex space-x-4 pt-4 border-t border-[#e6dfd3]">
+            <form method="post" class="flex space-x-4 pt-4 border-t border-[#1e293b] tech-code">
                 {% csrf_token %}
-                <button type="submit" class="w-full bg-[#9c523c] hover:bg-[#7d3b29] text-white text-sm font-semibold px-5 py-2.5 rounded-xl shadow-md shadow-[#9c523c]/10 transition-all duration-150 hover:-translate-y-0.5">
-                    Yes, Delete Asset
+                <button type="submit" class="w-full bg-[#f43f5e] hover:bg-[#e11d48] text-white text-xs font-bold uppercase tracking-widest px-4 py-2.5 rounded-lg shadow-lg shadow-[#f43f5e]/10 transition-all duration-150">
+                    Execute Purge
                 </button>
-                <a href="{% url 'album-list' %}" class="w-full text-center bg-[#f3ede0] hover:bg-[#e6dfd3] text-[#5c4636] text-sm font-semibold px-5 py-2.5 rounded-xl transition">
-                    Keep Album
+                <a href="{% url 'album-list' %}" class="w-full text-center bg-[#1e293b] hover:bg-[#334155] text-[#94a3b8] text-xs font-bold uppercase tracking-widest px-4 py-2.5 rounded-lg transition leading-9">
+                    Abort Command
                 </a>
             </form>
         </div>
